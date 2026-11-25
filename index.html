@@ -697,10 +697,11 @@ function caixaVideo(item, op) {
   const v = document.createElement('video');
   v.muted = true; v.defaultMuted = true; v.setAttribute('muted', '');
   v.loop = true; v.playsInline = true; v.setAttribute('playsinline', '');
-  v.preload = 'metadata';
+  // Com capa: a capa fica na tela até o vídeo tocar (sem #t, que troca a capa pelo quadro do vídeo).
+  v.preload = item.capa ? 'none' : 'metadata';
   if (item.capa) v.poster = item.capa;
   v.addEventListener('error', () => virarLacuna(op.dica, src));
-  v.src = src + '#t=0.1';
+  v.src = item.capa ? src : src + '#t=0.1';
   box.appendChild(v);
   box.appendChild(el('span', 'play', ICONE.play));
 
