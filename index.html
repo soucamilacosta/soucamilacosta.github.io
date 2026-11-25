@@ -179,6 +179,14 @@ h2.titulo .cursiva{position:relative;display:inline-block;margin-left:.18em;font
 .nicho-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
 .nicho-card .leg{display:flex;justify-content:space-between;margin-top:10px;font-family:Anton,Impact,sans-serif;font-size:16px;text-transform:uppercase}
 .nicho-card .leg .num{color:var(--terra)}
+.marca-card{display:flex;gap:10px;align-items:center;margin-top:10px;padding:8px;border:1.5px solid var(--marrom);background:#fff}
+.marca-card .logo{flex:0 0 72px;height:44px;border-radius:6px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
+.marca-card .logo img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.marca-card .info{min-width:0;font-size:11.5px;line-height:1.35}
+.marca-card .nome{font-weight:800;font-size:12.5px}
+.marca-card .cores{display:flex;gap:4px;margin:4px 0 3px}
+.marca-card .cores i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,0,0,.25);display:inline-block}
+.marca-card .conceito{font-style:italic;color:var(--terra)}
 
 /* ---------- elogios ---------- */
 .elogios{background:var(--marrom);color:var(--creme);padding:80px 0}
@@ -773,6 +781,18 @@ function montarMarcas() {
   $('#listaMarcas').innerHTML = marcas.map(m => '<li>' + esc(nomeDe(m)) + '</li>').join('');
 }
 
+function cardMarca(chave) {
+  const m = MARCAS[chave];
+  if (!m) return null;
+  const c = el('div', 'marca-card');
+  const cores = (m.cores || []).map(h => '<i style="background:' + esc(h) + '" title="' + esc(h) + '"></i>').join('');
+  c.innerHTML = '<div class="logo"><img src="' + esc(m.logo) + '" alt="' + esc(m.nome) + '" loading="lazy"></div>' +
+    '<div class="info"><div class="nome">' + esc(m.nome) + '</div><div class="cores">' + cores + '</div>' +
+    '<div>' + esc(tr(m, 'estilo')) + ' · ' + esc(tr(m, 'tom')) + '</div>' +
+    (m.conceito ? '<div class="conceito">“' + esc(tr(m, 'conceito')) + '”</div>' : '') + '</div>';
+  return c;
+}
+
 function montarDestaques() {
   const g = $('#destGrade');
   g.innerHTML = '';
@@ -790,6 +810,7 @@ function montarDestaques() {
     card.appendChild(el('div', 'tit', titulo ? esc(titulo) : lacunaTxt('título curto')));
     const meta = [tr(d, 'nicho'), d.formato].filter(Boolean).map(esc).join(' · ');
     card.appendChild(el('div', 'meta', meta || lacunaTxt('nicho · formato (ADS, review, unboxing, tutorial, nativo)')));
+    const cm = cardMarca(d.marca); if (cm) card.appendChild(cm);
     g.appendChild(card);
   });
   const pv = el('div', 'painel-vert', '<span class="v">' + esc(primeiroNome()) + '</span><span class="cursiva">ugc</span>');
@@ -837,6 +858,7 @@ function abrirNicho(i, mudarLink) {
       onErro: () => { if (k < videos.length) { falhas++; checar(); } }
     }));
     card.appendChild(el('div', 'leg', '<span>/ ' + esc(tr(n, 'nome')) + '</span><span class="num">' + numero + '</span>'));
+    const cm = cardMarca(v.marca); if (cm) card.appendChild(cm);
     grade.appendChild(card);
   }
   checar();
@@ -960,6 +982,22 @@ function iniciar() {
    Troque os textos entre aspas. Campo vazio ("") vira lacuna listrada com dica.
    Campos terminados em _en são a versão em inglês (botão EN do menu).
    ===================================================================== */
+const MARCAS = {
+  // Card da marca: logo (recortado das minhas imagens do produto), cores da embalagem, estilo e tom.
+  clear:   { nome: "Clear", logo: "midia/marcas/clear.jpg", cores: ["#0C6F9C", "#2993A7", "#FFFFFF"],
+             estilo: "Esportiva e refrescante", estilo_en: "Sporty and fresh", tom: "Direto, de performance", tom_en: "Direct, performance-led" },
+  bold:    { nome: "Bold", logo: "midia/marcas/bold.jpg", cores: ["#E88F43", "#A6633D", "#F2EEE3", "#5B3626"],
+             estilo: "Jovem e divertida", estilo_en: "Young and playful", tom: "Descontraído e guloso", tom_en: "Relaxed and indulgent" },
+  "loreal-paris": { nome: "L'Oréal Paris", logo: "midia/marcas/loreal-paris.jpg", cores: ["#CAC5BE", "#95887C", "#50483D"],
+             estilo: "Elegante e premium", estilo_en: "Elegant and premium", tom: "Confiante", tom_en: "Confident", conceito: "Porque você vale muito", conceito_en: "Because you're worth it" },
+  omo:     { nome: "OMO", logo: "midia/marcas/omo.jpg", cores: ["#28346E", "#7D97CE", "#FFFFFF"],
+             estilo: "Familiar e confiável", estilo_en: "Familiar and trusted", tom: "Acolhedor e prático", tom_en: "Warm and practical" },
+  heineken: { nome: "Heineken 0.0", logo: "midia/marcas/heineken.jpg", cores: ["#2A3F26", "#283A7A", "#F51C2C", "#B3C5D2"],
+             estilo: "Premium e social", estilo_en: "Premium and social", tom: "Leve, de torcida", tom_en: "Easygoing, game-day" },
+  cif:     { nome: "Cif", logo: "midia/marcas/cif.jpg", cores: ["#287648", "#E1C108", "#FFFFFF"],
+             estilo: "Lúdica e divertida", estilo_en: "Playful and fun", tom: "Bem-humorado", tom_en: "Humorous", conceito: "Parece milagre, mas é Cif", conceito_en: "Looks like a miracle, but it's Cif" }
+};
+
 const DADOS = {
   // Seu nome. O primeiro nome aparece em letra cursiva na capa e no menu.
   nome: "Camila Costa",
@@ -1032,9 +1070,9 @@ const DADOS = {
   // titulo | nicho | formato: ADS, review, unboxing, tutorial ou nativo
   // video: arquivo .mp4 vertical | capa: imagem opcional | res: resultado real (ex.: "116 vendas")
   destaques: [
-    { titulo: "Clear Detox Diário: cabelo pós-treino", titulo_en: "Clear Daily Detox: post-workout hair", nicho: "Beleza", nicho_en: "Beauty", formato: "review · vídeo conceito", video: "midia/destaques/1.mp4", capa: "midia/destaques/1.jpg", res: "", res_en: "" },
-    { titulo: "Bold Doce de Leite: o lanche das 3 da tarde", titulo_en: "Bold Dulce de Leche: the 3 p.m. snack", nicho: "Fitness & Saúde", nicho_en: "Fitness & Health", formato: "review · vídeo conceito", video: "midia/destaques/2.mp4", capa: "midia/destaques/2.jpg", res: "", res_en: "" },
-    { titulo: "L'Oréal Solar Expertise FPS 70: o sol e o melasma", titulo_en: "L'Oréal Solar Expertise SPF 70: sun and melasma", nicho: "Beleza", nicho_en: "Beauty", formato: "review · vídeo conceito", video: "midia/destaques/3.mp4", capa: "midia/destaques/3.jpg", res: "", res_en: "" }
+    { titulo: "Clear Detox Diário: cabelo pós-treino", titulo_en: "Clear Daily Detox: post-workout hair", nicho: "Beleza", nicho_en: "Beauty", marca: "clear", formato: "review · vídeo conceito", video: "midia/destaques/1.mp4", capa: "midia/destaques/1.jpg", res: "", res_en: "" },
+    { titulo: "Bold Doce de Leite: o lanche das 3 da tarde", titulo_en: "Bold Dulce de Leche: the 3 p.m. snack", nicho: "Fitness & Saúde", nicho_en: "Fitness & Health", marca: "bold", formato: "review · vídeo conceito", video: "midia/destaques/2.mp4", capa: "midia/destaques/2.jpg", res: "", res_en: "" },
+    { titulo: "L'Oréal Solar Expertise FPS 70: o sol e o melasma", titulo_en: "L'Oréal Solar Expertise SPF 70: sun and melasma", nicho: "Beleza", nicho_en: "Beauty", marca: "loreal-paris", formato: "review · vídeo conceito", video: "midia/destaques/3.mp4", capa: "midia/destaques/3.jpg", res: "", res_en: "" }
   ],
 
   // Abas de nichos, agrupadas pra não poluir. Cada aba precisa de pelo menos 3 vídeos.
@@ -1043,17 +1081,18 @@ const DADOS = {
   nichos: [
     { nome: "Beleza",          nome_en: "Beauty",           pasta: "beleza",
       inclui: ["Beleza", "Skincare", "Maquiagem", "Cabelo"], inclui_en: ["Beauty", "Skincare", "Makeup", "Hair"],
-      videos: [{ titulo: "Clear Detox Diário", video: "midia/destaques/1.mp4", capa: "midia/destaques/1.jpg" },
-               { titulo: "L'Oréal Solar Expertise", video: "midia/destaques/3.mp4", capa: "midia/destaques/3.jpg" }].concat(vids("beleza").slice(2)) },
+      videos: [{ titulo: "Clear Detox Diário", marca: "clear", video: "midia/destaques/1.mp4", capa: "midia/destaques/1.jpg" },
+               { titulo: "L'Oréal Solar Expertise", marca: "loreal-paris", video: "midia/destaques/3.mp4", capa: "midia/destaques/3.jpg" }].concat(vids("beleza").slice(2)) },
     { nome: "Moda",            nome_en: "Fashion",          pasta: "moda",
       inclui: ["Roupas", "Acessórios", "Óculos"],            inclui_en: ["Clothing", "Accessories", "Eyewear"], videos: vids("moda") },
     { nome: "Casa & Comida",   nome_en: "Home & Food",      pasta: "casa-e-comida",
       inclui: ["Casa e decoração", "Comida", "Bebidas"],     inclui_en: ["Home & decor", "Food", "Drinks"],
-      videos: [{ titulo: "OMO Todo Ciclo em pó", video: "midia/nichos/casa-e-comida/1.mp4", capa: "midia/nichos/casa-e-comida/1.jpg" },
-               { titulo: "Heineken 0.0: F1 em casa", video: "midia/nichos/casa-e-comida/2.mp4", capa: "midia/nichos/casa-e-comida/2.jpg" }].concat(vids("casa-e-comida").slice(2)) },
+      videos: [{ titulo: "OMO Todo Ciclo em pó", marca: "omo", video: "midia/nichos/casa-e-comida/1.mp4", capa: "midia/nichos/casa-e-comida/1.jpg" },
+               { titulo: "Heineken 0.0: F1 em casa", marca: "heineken", video: "midia/nichos/casa-e-comida/2.mp4", capa: "midia/nichos/casa-e-comida/2.jpg" },
+               { titulo: "Cif Limpeza Milagrosa: 3 descobertas num fogão só", marca: "cif", video: "midia/nichos/casa-e-comida/3.mp4", capa: "midia/nichos/casa-e-comida/3.jpg" }].concat(vids("casa-e-comida").slice(3)) },
     { nome: "Fitness & Saúde", nome_en: "Fitness & Health", pasta: "fitness-e-saude",
       inclui: ["Fitness", "Suplementos"],                    inclui_en: ["Fitness", "Supplements"],
-      videos: [{ titulo: "Bold Doce de Leite", video: "midia/destaques/2.mp4", capa: "midia/destaques/2.jpg" }].concat(vids("fitness-e-saude").slice(1)) },
+      videos: [{ titulo: "Bold Doce de Leite", marca: "bold", video: "midia/destaques/2.mp4", capa: "midia/destaques/2.jpg" }].concat(vids("fitness-e-saude").slice(1)) },
     { nome: "Lifestyle",       nome_en: "Lifestyle",        pasta: "lifestyle",
       inclui: ["Maternidade", "Viagem"],                     inclui_en: ["Motherhood", "Travel"], videos: vids("lifestyle") },
     { nome: "Tech & Carros",   nome_en: "Tech & Cars",      pasta: "tech-e-carros",
