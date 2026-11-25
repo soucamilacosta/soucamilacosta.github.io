@@ -180,7 +180,7 @@ h2.titulo .cursiva{position:relative;display:inline-block;margin-left:.18em;font
 .nicho-card .leg{display:flex;justify-content:space-between;margin-top:10px;font-family:Anton,Impact,sans-serif;font-size:16px;text-transform:uppercase}
 .nicho-card .leg .num{color:var(--terra)}
 .marca-card{display:flex;gap:10px;align-items:center;margin-top:10px;padding:8px;border:1.5px solid var(--marrom);background:#fff}
-.marca-card .logo{flex:0 0 72px;height:44px;border-radius:6px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
+.marca-card .logo{flex:0 0 92px;height:52px;border-radius:6px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;padding:6px;box-sizing:border-box}
 .marca-card .logo img{max-width:100%;max-height:100%;object-fit:contain;display:block}
 .marca-card .info{min-width:0;font-size:11.5px;line-height:1.35}
 .marca-card .nome{font-weight:800;font-size:12.5px}
@@ -786,7 +786,7 @@ function cardMarca(chave) {
   if (!m) return null;
   const c = el('div', 'marca-card');
   const cores = (m.cores || []).map(h => '<i style="background:' + esc(h) + '" title="' + esc(h) + '"></i>').join('');
-  c.innerHTML = '<div class="logo"><img src="' + esc(m.logo) + '" alt="' + esc(m.nome) + '" loading="lazy"></div>' +
+  c.innerHTML = '<div class="logo" style="background:' + esc(m.fundo || '#fff') + '"><img src="' + esc(m.logo) + '" alt="' + esc(m.nome) + '" loading="lazy"></div>' +
     '<div class="info"><div class="nome">' + esc(m.nome) + '</div><div class="cores">' + cores + '</div>' +
     '<div>' + esc(tr(m, 'estilo')) + ' · ' + esc(tr(m, 'tom')) + '</div>' +
     (m.conceito ? '<div class="conceito">“' + esc(tr(m, 'conceito')) + '”</div>' : '') + '</div>';
@@ -984,17 +984,17 @@ function iniciar() {
    ===================================================================== */
 const MARCAS = {
   // Card da marca: logo (recortado das minhas imagens do produto), cores da embalagem, estilo e tom.
-  clear:   { nome: "Clear", logo: "midia/marcas/clear.jpg", cores: ["#0C6F9C", "#2993A7", "#FFFFFF"],
+  clear:   { nome: "Clear", logo: "midia/marcas/clear.png", fundo: "#0B1A45", cores: ["#0C6F9C", "#2993A7", "#FFFFFF"],
              estilo: "Esportiva e refrescante", estilo_en: "Sporty and fresh", tom: "Direto, de performance", tom_en: "Direct, performance-led" },
-  bold:    { nome: "Bold", logo: "midia/marcas/bold.jpg", cores: ["#E88F43", "#A6633D", "#F2EEE3", "#5B3626"],
+  bold:    { nome: "Bold", logo: "midia/marcas/bold.png", fundo: "#3C8FA2", cores: ["#E88F43", "#A6633D", "#F2EEE3", "#5B3626"],
              estilo: "Jovem e divertida", estilo_en: "Young and playful", tom: "Descontraído e guloso", tom_en: "Relaxed and indulgent" },
-  "loreal-paris": { nome: "L'Oréal Paris", logo: "midia/marcas/loreal-paris.jpg", cores: ["#CAC5BE", "#95887C", "#50483D"],
+  "loreal-paris": { nome: "L'Oréal Paris", logo: "midia/marcas/loreal-paris.png", fundo: "#FFFFFF", cores: ["#CAC5BE", "#95887C", "#50483D"],
              estilo: "Elegante e premium", estilo_en: "Elegant and premium", tom: "Confiante", tom_en: "Confident", conceito: "Porque você vale muito", conceito_en: "Because you're worth it" },
-  omo:     { nome: "OMO", logo: "midia/marcas/omo.jpg", cores: ["#28346E", "#7D97CE", "#FFFFFF"],
+  omo:     { nome: "OMO", logo: "midia/marcas/omo.png", fundo: "#2B2FA8", cores: ["#28346E", "#7D97CE", "#FFFFFF"],
              estilo: "Familiar e confiável", estilo_en: "Familiar and trusted", tom: "Acolhedor e prático", tom_en: "Warm and practical" },
-  heineken: { nome: "Heineken 0.0", logo: "midia/marcas/heineken.jpg", cores: ["#2A3F26", "#283A7A", "#F51C2C", "#B3C5D2"],
+  heineken: { nome: "Heineken 0.0", logo: "midia/marcas/heineken.png", fundo: "#111111", cores: ["#2A3F26", "#283A7A", "#F51C2C", "#B3C5D2"],
              estilo: "Premium e social", estilo_en: "Premium and social", tom: "Leve, de torcida", tom_en: "Easygoing, game-day" },
-  cif:     { nome: "Cif", logo: "midia/marcas/cif.jpg", cores: ["#287648", "#E1C108", "#FFFFFF"],
+  cif:     { nome: "Cif", logo: "midia/marcas/cif.png", fundo: "#FFFFFF", cores: ["#287648", "#E1C108", "#FFFFFF"],
              estilo: "Lúdica e divertida", estilo_en: "Playful and fun", tom: "Bem-humorado", tom_en: "Humorous", conceito: "Parece milagre, mas é Cif", conceito_en: "Looks like a miracle, but it's Cif" }
 };
 
