@@ -998,7 +998,10 @@ const MARCAS = {
   cif:     { nome: "Cif", logo: "midia/marcas/cif.png", fundo: "#FFFFFF", cores: ["#287648", "#E1C108", "#FFFFFF"],
              estilo: "Lúdica e divertida", estilo_en: "Playful and fun", tom: "Bem-humorado", tom_en: "Humorous", conceito: "Parece milagre, mas é Cif", conceito_en: "Looks like a miracle, but it's Cif" },
   principia: { nome: "Principia", logo: "midia/marcas/principia.png", fundo: "#111111", cores: ["#0F5C55", "#111111", "#FFFFFF"],
-             estilo: "Minimalista e científica", estilo_en: "Minimal and science-led", tom: "Direto e didático", tom_en: "Straightforward and educational" }
+             estilo: "Minimalista e científica", estilo_en: "Minimal and science-led", tom: "Direto e didático", tom_en: "Straightforward and educational" },
+  garnier: { nome: "Garnier", logo: "midia/marcas/garnier.png", fundo: "#FFFFFF", cores: ["#213C2B", "#8FC150", "#FFFFFF"],
+             estilo: "Fresca e acessível", estilo_en: "Fresh and accessible", tom: "Próximo e direto", tom_en: "Warm and straightforward",
+             conceito: "O hidratante que mora na minha geladeira", conceito_en: "The moisturizer that lives in my fridge" }
 };
 
 const DADOS = {
@@ -1086,7 +1089,8 @@ const DADOS = {
       inclui: ["Beleza", "Skincare", "Maquiagem", "Cabelo"], inclui_en: ["Beauty", "Skincare", "Makeup", "Hair"],
       videos: [{ titulo: "Clear Detox Diário", marca: "clear", video: "midia/destaques/1.mp4", capa: "midia/destaques/1.jpg" },
                { titulo: "L'Oréal Solar Expertise", marca: "loreal-paris", video: "midia/destaques/3.mp4", capa: "midia/destaques/3.jpg" },
-               { titulo: "Principia GL-01: eu do treino × eu do GL-01", marca: "principia", video: "midia/nichos/beleza/3-principia-v2.mp4", capa: "midia/nichos/beleza/3.jpg" }].concat(vids("beleza").slice(3)) },
+               { titulo: "Principia GL-01: eu do treino × eu do GL-01", marca: "principia", video: "midia/nichos/beleza/3-principia-v2.mp4", capa: "midia/nichos/beleza/3.jpg" },
+               { titulo: "Garnier Hialurônico Toque Seco", marca: "garnier", video: "midia/nichos/beleza/4-garnier.mp4", capa: "midia/nichos/beleza/4.jpg" }].concat(vids("beleza").slice(4)) },
     { nome: "Moda",            nome_en: "Fashion",          pasta: "moda",
       inclui: ["Roupas", "Acessórios", "Óculos"],            inclui_en: ["Clothing", "Accessories", "Eyewear"], videos: vids("moda") },
     { nome: "Casa & Comida",   nome_en: "Home & Food",      pasta: "casa-e-comida",
