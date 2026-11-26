@@ -996,7 +996,9 @@ const MARCAS = {
   heineken: { nome: "Heineken 0.0", logo: "midia/marcas/heineken.png", fundo: "#111111", cores: ["#2A3F26", "#283A7A", "#F51C2C", "#B3C5D2"],
              estilo: "Premium e social", estilo_en: "Premium and social", tom: "Leve, de torcida", tom_en: "Easygoing, game-day" },
   cif:     { nome: "Cif", logo: "midia/marcas/cif.png", fundo: "#FFFFFF", cores: ["#287648", "#E1C108", "#FFFFFF"],
-             estilo: "Lúdica e divertida", estilo_en: "Playful and fun", tom: "Bem-humorado", tom_en: "Humorous", conceito: "Parece milagre, mas é Cif", conceito_en: "Looks like a miracle, but it's Cif" }
+             estilo: "Lúdica e divertida", estilo_en: "Playful and fun", tom: "Bem-humorado", tom_en: "Humorous", conceito: "Parece milagre, mas é Cif", conceito_en: "Looks like a miracle, but it's Cif" },
+  principia: { nome: "Principia", logo: "midia/marcas/principia.png", fundo: "#111111", cores: ["#0F5C55", "#111111", "#FFFFFF"],
+             estilo: "Minimalista e científica", estilo_en: "Minimal and science-led", tom: "Direto e didático", tom_en: "Straightforward and educational" }
 };
 
 const DADOS = {
@@ -1083,7 +1085,8 @@ const DADOS = {
     { nome: "Beleza",          nome_en: "Beauty",           pasta: "beleza",
       inclui: ["Beleza", "Skincare", "Maquiagem", "Cabelo"], inclui_en: ["Beauty", "Skincare", "Makeup", "Hair"],
       videos: [{ titulo: "Clear Detox Diário", marca: "clear", video: "midia/destaques/1.mp4", capa: "midia/destaques/1.jpg" },
-               { titulo: "L'Oréal Solar Expertise", marca: "loreal-paris", video: "midia/destaques/3.mp4", capa: "midia/destaques/3.jpg" }].concat(vids("beleza").slice(2)) },
+               { titulo: "L'Oréal Solar Expertise", marca: "loreal-paris", video: "midia/destaques/3.mp4", capa: "midia/destaques/3.jpg" },
+               { titulo: "Principia GL-01: eu do treino × eu do GL-01", marca: "principia", video: "midia/nichos/beleza/3.mp4", capa: "midia/nichos/beleza/3.jpg" }].concat(vids("beleza").slice(3)) },
     { nome: "Moda",            nome_en: "Fashion",          pasta: "moda",
       inclui: ["Roupas", "Acessórios", "Óculos"],            inclui_en: ["Clothing", "Accessories", "Eyewear"], videos: vids("moda") },
     { nome: "Casa & Comida",   nome_en: "Home & Food",      pasta: "casa-e-comida",
